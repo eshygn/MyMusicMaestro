@@ -2,8 +2,6 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .api_views import AlbumTracklistItemViewSet, AlbumViewSet, SongViewSet
 from . import views
-from django.conf import settings
-from django.contrib.auth.views import LoginView
 
 router = DefaultRouter()
 router.register(r'albums', AlbumViewSet)

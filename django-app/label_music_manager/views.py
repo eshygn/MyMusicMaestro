@@ -1,11 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Album, AlbumTracklistItem, MusicManagerUser, Song
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
+from django.contrib.auth import login
 from .forms import AlbumForm
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
 from django.contrib import messages
 
 @login_required
