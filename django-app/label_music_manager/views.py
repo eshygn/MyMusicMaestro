@@ -127,3 +127,12 @@ def user_logout(request):
         logout(request) 
         return redirect('login')
     return redirect('album-list')
+
+@login_required
+def album_detail_slug(request, id, slug):
+    album = get_object_or_404(Album, id=id)
+    
+    if album.slug != slug:
+        return redirect('album-detail-slug', id=id, slug=album.slug)
+
+    return render(request, 'label_music_manager/album_detail.html', {'album': album})

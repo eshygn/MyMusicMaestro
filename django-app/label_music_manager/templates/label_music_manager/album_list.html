@@ -5,6 +5,9 @@
   <ul>
     {% for album in albums %}
     <li>
+      <a href="{% url 'album-detail-slug' album.id album.slug %}">
+    {{ album.title }}
+    </a>
       <a href="{% url 'album-detail' album.id %}">
         {% if album.cover_image %}
           <img src="{{ album.cover_image.url }}" alt="{{ album.title }}" style="width: 100px; height: 100px;">
