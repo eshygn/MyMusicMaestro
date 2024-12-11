@@ -12,3 +12,8 @@ class AlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
         fields = ['id', 'title', 'description', 'artist', 'price', 'format', 'release_date', 'cover_image', 'slug', 'tracks']
+
+class AlbumTracklistItemSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = AlbumTracklistItem
+        fields = ['id', 'position', 'song', 'album']

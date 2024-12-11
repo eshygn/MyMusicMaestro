@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ album.title }}</h2>
+  <p><strong>Artist:</strong> {{ album.artist }}</p>
+  <p><strong>Release Date:</strong> {{ album.release_date }}</p>
+  <p><strong>Format:</strong> {{ album.get_format_display }}</p>
+  <p><strong>Description:</strong> {{ album.description }}</p>
+  <p><strong>Price:</strong> £{{ album.price }}</p>
+
+  <h3>Tracklist:</h3>
+  <ul>
+    {% for track in album.songs.all %}
+      <li>{{ track.title }} (Duration: {{ track.length }} seconds)</li>
+    {% empty %}
+      <li>No songs added to this album yet.</li>
+    {% endfor %}
+  </ul>
+
+  {% if album.cover_image %}
+    <h4>Cover Image:</h4>
+    <img src="{{ album.cover_image.url }}" alt="{{ album.title }}" style="width: 200px" />
+  {% else %}
+    <h4>Cover Image:</h4>
+    <img src="/static/covers/default.jpg" alt="No Cover Image" style="width: 200px" />
+  {% endif %}
+
+  {% if user.musicmanageruser.user_type == 'editor' %}
+    <a href="{% url 'album-edit' album.id %}">Edit</a>
+    <a href="{% url 'album-delete' album.id %}">Delete</a>
+  {% elif user.musicmanageruser.user_type == 'artist' and album.artist == user.musicmanageruser.display_name %}
+    <a href="{% url 'album-edit' album.id %}">Edit</a>
+  {% endif %}
+{% endblock %}

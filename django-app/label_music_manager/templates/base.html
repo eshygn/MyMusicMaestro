@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Music Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <header>
+      <h1>Music Manager</h1>
+      <nav>
+        {% if user.is_authenticated %}
+    <a href="{% url 'album-list' %}">Home</a>
+    <a href="{% url 'album-create' %}">Add Album</a>
+
+    <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+{% else %}
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
+      </nav>
+    </header>
+
+    <main>{% block content %} {% endblock %}</main>
+
+    <footer>
+      <p>&copy; 2024 Music Manager</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Album List</h2>
+  <ul>
+    {% for album in albums %}
+    <li>
+      <a href="{% url 'album-detail' album.id %}">
+        {% if album.cover_image %}
+          <img src="{{ album.cover_image.url }}" alt="{{ album.title }}" style="width: 100px; height: 100px;">
+        {% else %}
+          <img src="/static/covers/default.jpg" alt="No Cover Image" style="width: 100px; height: 100px;">
+        {% endif %}
+        {{ album.title }} by {{ album.artist }}
+      </a>
+
+      {% if user.musicmanageruser.user_type == 'editor' %}
+        <span> | </span>
+        <a href="{% url 'album-edit' album.id %}">Edit</a>
+        <span> | </span>
+        <a href="{% url 'album-delete' album.id %}">Delete</a>
+      {% elif user.musicmanageruser.user_type == 'artist' and album.artist == user.musicmanageruser.display_name %}
+        <span> | </span>
+        <a href="{% url 'album-edit' album.id %}">Edit</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

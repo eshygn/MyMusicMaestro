@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Delete Album</h2>
+<p>Are you sure you want to delete "{{ album.title }}"?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Delete</button>
+  <a href="{% url 'album-detail' album.id %}">Cancel</a>
+</form>
+{% endblock %}

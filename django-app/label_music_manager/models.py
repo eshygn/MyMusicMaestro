@@ -4,7 +4,6 @@ from django.forms import ValidationError
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import date, timedelta
-from django.contrib.auth.models import User
 
 class Album(models.Model):
     title=models.CharField(max_length=512, unique=True)
@@ -54,7 +53,7 @@ class AlbumTracklistItem(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     position = models.PositiveIntegerField(null = True, blank = True)
     class Meta:
-        unique_together = ('album', 'song')  # Ensure song is unique in an album
+        unique_together = ('album', 'song')
 
     def __str__(self):
         return f"{self.song.title} in {self.album.title} (Track {self.position})"
@@ -72,6 +71,3 @@ class MusicManagerUser(models.Model):
     
     def __str__(self):
         return self.display_name
-    
-
-
